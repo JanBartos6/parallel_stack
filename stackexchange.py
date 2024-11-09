@@ -1,10 +1,7 @@
 import requests
 import json
-import requests
-import json
 import time
 import os
-import boto3
 
 # API endpoint to retrieve all Stack Exchange sites
 sites_url = "https://api.stackexchange.com/2.3/sites"
