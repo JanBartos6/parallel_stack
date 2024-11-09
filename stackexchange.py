@@ -3,13 +3,16 @@ import json
 import requests
 import json
 import time
+import os
+import boto3
 
 # API endpoint to retrieve all Stack Exchange sites
 sites_url = "https://api.stackexchange.com/2.3/sites"
 
-# Load API keys
-with open('request-keys.json', 'r') as key_file:
-    keys = json.load(key_file)
+keys = {
+    "key": os.getenv("STACKEXCHANGE_KEY"),
+    "client_id": os.getenv("STACKEXCHANGE_CLIENT_ID")
+}
 
 # Retrieve the list of Stack Exchange sites
 params = {
@@ -33,7 +36,7 @@ with open('communities.txt', 'w') as f:
         f.write(f"{match}\n")
 
 # Number of days to look back
-number_of_days = 7
+number_of_days = 1
 
 # API endpoints
 url = "https://api.stackexchange.com/2.3/questions"
@@ -41,10 +44,6 @@ answers_url = "https://api.stackexchange.com/2.3/questions/{ids}/answers"
 
 # Calculate the 'fromdate' parameter in Unix time
 fromdate = int(time.time()) - number_of_days * 24 * 60 * 60
-
-# Load API keys and client ids
-with open('request-keys.json', 'r') as key_file:
-    keys = json.load(key_file)
 
 page = 1  # Start from the first page
 
